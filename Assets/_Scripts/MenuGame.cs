@@ -9,10 +9,41 @@ public class MenuGame : MonoBehaviour
     public AudioMixer audioMixer;
     private int _currentCharacter;
     public GameObject characterHolder;
+    public static bool gameIsPaused = false;
+    public GameObject pauseMenuUI;
 
     private void Awake()
     {
         LoadCharacter();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (gameIsPaused)
+            {
+                ResumeGame();
+            }
+            else
+            {
+                PauseGame();
+            }
+        }
+    }
+
+    public void ResumeGame()
+    {
+        pauseMenuUI.SetActive(false);
+        Time.timeScale = 1f;
+        gameIsPaused = false;
+    }
+
+    public void PauseGame()
+    {
+        pauseMenuUI.SetActive(true);
+        Time.timeScale = 0f;
+        gameIsPaused = true;
     }
 
     private void LoadCharacter()
@@ -23,6 +54,7 @@ public class MenuGame : MonoBehaviour
 
     public void LoadLevel(string levelName)
     {
+        ResumeGame();
         SceneManager.LoadScene(levelName);
     }
 
