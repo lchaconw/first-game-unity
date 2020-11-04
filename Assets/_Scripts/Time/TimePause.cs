@@ -33,7 +33,7 @@ public class TimePause : MonoBehaviour
 
             gameObject.SetActive(false);
 
-
+            //Evento google analytics
             var activeScene = SceneManager.GetActiveScene();
             string sceneName = activeScene.name;
             FirebaseAnalytics.LogEvent("TimePause",
